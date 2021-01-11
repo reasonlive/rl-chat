@@ -1,0 +1,134 @@
+.profile{
+	display:grid;
+	grid-template-columns: repeat(6, 200px);
+	grid-template-rows: 300px 100px;
+	position: relative;
+	background-color: rgba(0,0,0,0.4);
+}
+
+.profile-item-a{
+	grid-column-start:1;
+	grid-column-end:3;
+	grid-row-start:1;
+	grid-row-end:3;
+	
+	
+
+}
+
+.profile-item-b{
+	grid-column-start:2;
+	grid-column-end:6;
+	grid-row-start: 1;
+	grid-row-end:3;
+
+	
+	
+	
+}
+
+.profile-item-c{
+	position: relative;
+	grid-column-start:5;
+	grid-column-end:9;
+	grid-row-start: 1;
+	grid-row-end:5;
+	
+	
+}
+
+.profile-avatar{
+	background-color:black;
+	position:relative;
+	width:303px;
+	height:377px;
+	margin:25px 0 0 40px;
+	color:white;
+}
+
+.profile-avatar img{
+	width:250px;height:250px;
+	margin:25px;
+}
+.profile-avatar input{
+	width:200px;
+}
+.profile-avatar button{
+	height:50px;
+	width:130px;
+	position: absolute;
+	right:0;
+	bottom:0;
+	background-color: black;
+	border:0;
+	outline:0;
+	color:white;
+	font:16px Papyrus, Fantasy;
+}
+
+.profile-avatar button:hover{
+	background-color:orange;
+	color:black;
+	cursor:pointer;
+}
+
+
+
+
+.profile-chat-menu{
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items:center;
+	
+	margin-bottom:50px;
+}
+
+
+
+
+.profile-extra-block{
+	display:flex;
+	align-items: center;
+	justify-content: space-between;
+	background:black;
+	width:714px;
+	position: absolute;
+	margin:7px 0 0 40px;
+	
+}
+
+.profile-extra-btns{
+	display:flex;
+	flex-direction: column;
+}
+
+.profile-extra-tags{
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	color:white;
+	width:350px;
+	height:100%;
+}
+.profile-extra-tags textarea{
+	resize: none;
+	width:60%;
+	height:50px;
+}
+.profile-extra-tags button{
+	align-self: stretch;
+	border:0;padding:0;
+	width:130px;
+	color:white;
+	background:black;
+	font:16px Papyrus, Fantasy;
+}
+.profile-extra-tags button:hover{
+	cursor: pointer;
+	background: orange;
+	color:black;
+
+}
+

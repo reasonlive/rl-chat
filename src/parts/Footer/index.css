@@ -1,0 +1,37 @@
+.footer{
+	background:darkkhaki;
+	height:100px;
+	width:100%;
+	display:flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.footer img{
+	height:100px;
+}
+
+.website{
+	font: 20px Monaco, Monospace;
+	max-width: 100px;
+
+}
+
+.footer div{
+	
+}
+.footer a{
+	text-decoration: none;
+	color: red;
+	font-weight: bold;
+}
+
+.greeting-words{
+	
+	text-align: center;
+	font: 30px Papyrus, Fantasy;
+	width:700px;
+	text-shadow: 1px 1px 1px rgba(192,192,192,1);
+	
+}

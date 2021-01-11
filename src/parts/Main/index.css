@@ -1,0 +1,46 @@
+
+.main{
+	background-image: url('./background.png');
+	background-repeat: repeat-x;
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+	height:100%;
+}
+
+.main-junior{
+	font: 20px Consolas , Monospace;
+}
+
+.content{
+	display:flex;
+	flex-direction: column;
+	justify-content: space-around;
+	min-height:550px;
+}
+
+.user-content{
+	min-height:650px;
+
+}
+
+.content-title{
+	font: 20px Papyrus, Fantasy;
+}
+
+.content-block{
+	margin-top:30px;
+	width:100%;
+	text-align: center;
+	font-size:18px;
+	font-weight: bold;
+}
+
+.content-block p{
+	margin:0;padding:0;
+}
+
+.content-block span{
+	padding:15px;
+}
+

@@ -1,0 +1,196 @@
+.chat-wrapper{
+	display:grid;
+	grid-template-columns: 2fr 1fr;
+	grid-auto-rows: 650px;
+	
+	position: absolute;
+	left:0;top:0;
+
+	/*display:flex;
+	width:100%;
+	flex-direction: row;
+	width:100%;
+	height:650px;*/
+	
+	
+}
+.chat{
+	
+	position:relative;
+	display:flex;
+	flex-direction: column;
+	width:100%;
+	height:100%;
+	background-color:rgba(0,128,0,0.5);
+	
+
+}
+
+.chat-msgs{
+	display:flex;
+	flex-direction: column;
+	width:100%;
+	height:85%;
+	overflow-y: auto;
+}
+
+.chat-avatar{
+	display:flex;
+	align-items: center;
+	color:black;
+}
+
+
+.chat-msg{
+	display:flex;
+	justify-content: flex-start;
+	word-wrap: break-word;
+}
+
+.chat-msg-self{
+	display: flex;
+	justify-content: flex-end;
+	
+}
+
+.msg{
+	max-width:300px;
+	word-wrap: break-word;
+	margin: 20px 5px 10px 20px;
+	font: 18px Lucida Console, Monospace;
+	background-color:orange;
+	border-radius: 15px;
+	padding: 10px;
+}
+
+
+.chat-msg-btns{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	cursor:pointer;
+}
+.chat-msg-btns span{
+	box-sizing: border-box;
+	width:20px;
+	height: 20px;
+	text-align: center;
+}
+.chat-msg-btns span:hover{
+	border:1px solid black;
+}
+
+
+
+
+.chat-info-wrapper{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width:135%;
+	background-color: rgba(0,0,0,0.1);
+	color:black;
+}
+
+.chat-info{
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width:100%;
+	height:200px;
+	background-color: rgba(0,0,0,0.5);
+	cursor:pointer;
+	font:bold 18px Monaco,monospace;
+	color:black;
+}
+
+.chat-info-users{
+
+	width:90%;
+	height:200px;
+	margin-top:20px;
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+	background-color:black;
+	color:white;
+	overflow-y: auto;
+
+}
+
+.user-info-block{
+	display:flex;
+	justify-content: space-between;
+	width:90%;
+	align-items: center;
+	margin:10px 0 10px 0;
+	height:30px;
+	border:2px solid orange;
+	border-radius: 5px;
+}
+
+.user-info-block:hover{
+	cursor: pointer;
+}
+
+.user-info-block img{
+	width:20px;
+	height:20px;
+	border-radius: 20px;
+}
+
+.user-info-block span{
+
+	max-width: 20px;
+}
+
+.user-info-block div{
+	display: flex;
+	align-items: center;
+}
+
+.user-dot-online{
+	color:orange;
+	font-size: 40px;
+}
+
+.user-dot{
+	color:black;
+	font-size: 40px;
+}
+
+.chat-info-btns{
+	margin-top:20px;
+}
+
+
+.chat-info-btns button{
+	background-color:black;
+	color:white;
+	cursor:pointer;
+	height:30px;
+	width:200px;
+	border:0;
+	font:15px Arial, serif;
+
+}
+
+.chat-info-btns button:hover{
+	background: orange;
+	color:black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
