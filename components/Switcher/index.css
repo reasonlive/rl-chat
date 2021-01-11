@@ -1,0 +1,34 @@
+.switcher{
+	display:flex;
+	flex-direction: row;
+}
+
+.items-wrapper{
+	display: flex;
+	justify-content: center;
+	width:100%;
+	overflow: hidden;
+	
+}
+
+.items-frame{
+	width:150px;
+	overflow: hidden;
+
+}
+
+.switcher-items{
+	z-index: 2;
+	display:flex;
+	overflow: hidden;
+	transition: margin 1s;
+}
+
+.switcher span{
+	cursor:pointer;
+	z-index: 1;
+}
+
+
+
+
