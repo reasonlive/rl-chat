@@ -1,5 +1,4 @@
-# RL-CHAT created by Reason Live
-Чат с возможностью удаления своих сообщений, пока без адаптивной верстки 
-и без обработки и рендеринга ошибок
-Пока еще в разработке, но основные функции рабочие, в том числе CRUD юзеров, сообщений и чатов.
+# rl-chat created by Reason Live
+This chat is in development mode yet, but main CRUD functions have already done
+and you may test them in real time , just download project and launch it
 # rl-chat
