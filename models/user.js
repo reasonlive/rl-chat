@@ -27,8 +27,8 @@ User.add({
   status: {type:String,default:'newbie'},
   estimate: {type:Number,default:0},
   tags: [String],
-  chats: [{type: Schema.Types.ObjectId ,ref:'Chat'}], //It can cause big problems to the performance
-  groups: [{type: Schema.Types.ObjectId,ref:"Group"}], //maybe it should be saved ids only
+  chats: [{type: Schema.Types.ObjectId ,ref:'Chat'}], 
+  groups: [{type: Schema.Types.ObjectId,ref:"Group"}], 
   people: [{type: Schema.Types.ObjectId,ref:"User"}],
   ban: {
   	banned: {type:Boolean, default: false},
