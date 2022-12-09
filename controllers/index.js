@@ -4,14 +4,10 @@ const groupController = require('./group');
 const messageController = require('./message');
 
 
-
-
 class Facade {
-
 
 	//METHODS FOR USER CONTROLLER
 	//////////////////////////////
-
 
 	//name, email, password, country, age
 	static async registerUser(fields){
@@ -278,50 +274,47 @@ class Facade {
 		else return false;
 	}
 
-
-
 	//@argument {String} status may be :
 	//newbie, calm, provocative, heckler, smartass, asshole, prettyboy, oldfashion, advanced, finefellow, 
+	static async setUserStatus(id, status){
 
-																		static async setUserStatus(id, status){
+		const statuses = ['newbie', 'calm', 'provocative',
+		 'heckler', 'smartass', 'asshole', 'prettyboy',
+		  'oldfashion', 'advanced', 'finefellow'];
 
-																			const statuses = ['newbie', 'calm', 'provocative',
-																			 'heckler', 'smartass', 'asshole', 'prettyboy',
-																			  'oldfashion', 'advanced', 'finefellow'];
+		  if(!statuses.includes(status))
+		  	return new Error('NofFoundError/No such Status');
 
-																			  if(!statuses.includes(status))
-																			  	return new Error('NofFoundError/No such Status');
+		
+		try{
+			let user = await Facade.getUserData(id);
+			user.status = status;
+			await user.save();
+			return true;
+		}catch(e){
+			return new Error(e.name+"/"+e.message);
+		}
+	}
 
-																			
-																			try{
-																				let user = await Facade.getUserData(id);
-																				user.status = status;
-																				await user.save();
-																				return true;
-																			}catch(e){
-																				return new Error(e.name+"/"+e.message);
-																			}
-																		}
+	//estimate set by 100 point scale or below 0
+	static async setUserEstimate(id, estimate){
 
-																		//estimate set by 100 point scale or below 0
-																		static async setUserEstimate(id, estimate){
+		if(typeof estimate !== 'number' || 
+			estimate > 100)return new Error('NotFoundError/No such Estimate');
 
-																			if(typeof estimate !== 'number' || 
-																				estimate > 100)return new Error('NotFoundError/No such Estimate');
+		
+		try{
+			let user = await Facade.getUserData(id);
+			user.estimate = estimate;
+			await user.save();
+			return true;
+		}catch(e){
+			return new Error(e.name+"/"+e.message);
+		}
+	}
 
-																			
-																			try{
-																				let user = await Facade.getUserData(id);
-																				user.estimate = estimate;
-																				await user.save();
-																				return true;
-																			}catch(e){
-																				return new Error(e.name+"/"+e.message);
-																			}
-																		}
 	//@argument {object} option may be one of these:  
 	//amount,online,banned,names,ids,admin =============================>
-
 	static getAllUsers = async function(option){
 
 		try{
@@ -332,70 +325,61 @@ class Facade {
 		}
 	}
 
+	static async getOnlineUsers(){
+		let users = await Facade.getAllUsers({online:true});
+		if(users instanceof Array)return users;
+		else return new Error('Database Error (Users)');
+	}
 
+	static async getBannedUsers(){
+		let users = await Facade.getAllUsers({banned:true});
+		if(users instanceof Array)return users;
+		else return new Error('Database Error (Users)');
+	}
 
+	static async getUsersLength(){
+		let arr = await Facade.getAllUsers({amount:true});
+		if(typeof arr === 'number')return arr;
+		else return new Error('Database Error (Users)');
+	}
 
-																		static async getOnlineUsers(){
-																			let users = await Facade.getAllUsers({online:true});
-																			if(users instanceof Array)return users;
-																			else return new Error('Database Error (Users)');
-																		}
+	static async getUsersNames(){
+		let users = await Facade.getAllUsers({names:true});
+		if(users instanceof Array)return users.map(user=>user.name);
+		else return new Error('Database Error (Users)');
+	}
 
-																		static async getBannedUsers(){
-																			let users = await Facade.getAllUsers({banned:true});
-																			if(users instanceof Array)return users;
-																			else return new Error('Database Error (Users)');
-																		}
+	static async getUsersIds(){
+		let users = await Facade.getAllUsers({ids:true});
+		if(users instanceof Array)return users.map(user=>user._id);
+		else return new Error('Database Error (Users)');
+	}
 
-																		static async getUsersLength(){
-																			let arr = await Facade.getAllUsers({amount:true});
-																			if(typeof arr === 'number')return arr;
-																			else return new Error('Database Error (Users)');
-																		}
-
-																		static async getUsersNames(){
-																			let users = await Facade.getAllUsers({names:true});
-																			if(users instanceof Array)return users.map(user=>user.name);
-																			else return new Error('Database Error (Users)');
-																		}
-
-																		static async getUsersIds(){
-																			let users = await Facade.getAllUsers({ids:true});
-																			if(users instanceof Array)return users.map(user=>user._id);
-																			else return new Error('Database Error (Users)');
-																		}
-
-																		static async getAllUsersInfo(){
-																			let all = await Facade.getAllUsers({all:true});
-																			if(all instanceof Array){
-																				let returned = [];
-																				for(let item of all){
-																					let user = {
-																						//name,age,country,registered,status,estimate,tags,avatar
-																						avatar: item.avatar,
-																						name:item.name,
-																						age:item.age,
-																						country:item.country,
-																						status: item.status,
-																						estimate:item.estimate,
-																						tags: item.tags,
-																						_id: item._id
-																					}
-																					returned.push(user);
-																				} 
-																				return returned;
-																			}
-																		}
+	static async getAllUsersInfo(){
+		let all = await Facade.getAllUsers({all:true});
+		if(all instanceof Array){
+			let returned = [];
+			for(let item of all){
+				let user = {
+					//name,age,country,registered,status,estimate,tags,avatar
+					avatar: item.avatar,
+					name:item.name,
+					age:item.age,
+					country:item.country,
+					status: item.status,
+					estimate:item.estimate,
+					tags: item.tags,
+					_id: item._id
+				}
+				returned.push(user);
+			} 
+			return returned;
+		}
+	}
 
 	
-
-
-
 	/////////////////////////////////////////////////////////////
 	//METHODS FOR CHAT CONTROLLER
-
-
-
 
 	//@argument {object} fields are {nameOfChat,userId,isPrivate}
 	static async addChat(fields){
@@ -465,8 +449,6 @@ class Facade {
 		return chat.people;
 	}
 
-
-
 	static async makeChatPrivate(chat){ //chat may be _id or chatname
 
 		if(chat.match(/^[0-9abcdef]{24}$/)){
@@ -529,11 +511,8 @@ class Facade {
 		return returned;
 	}
 
-	
 	//when user first time enters to the chat
-	static async postUserToChat(id, userId){ 
-  
-		
+	static async postUserToChat(id, userId){ 		
 			let user = await userController.getUser({_id:userId});
 			if(!user)return new Error('NotFoundError/No such User');
 
@@ -549,7 +528,6 @@ class Facade {
 
 	}
 
-
 	//maybe it will be private helper
 	static async postMessageToChat(id, message){
 
@@ -564,7 +542,6 @@ class Facade {
 		return true;
 	}
 
-	
 	static async deleteUserFromChat(userId,chatId){
 
 			if(!userId.match(/^[0-9abcdef]{24}$/)){
@@ -586,11 +563,7 @@ class Facade {
 				return e;
 			}
 
-			
-		
-
 		return true;
-
 	}
 
 
@@ -607,24 +580,17 @@ class Facade {
 			return new Error(e.error+"/"+e.message);
 		}
 
-		
-
 		return true;
 	}
-
 
 
 	//////////////////////////////////////
 	//METHODS FOR MESSAGE CONTROLLER
 
-
-
-
 	//@argument {ObjectId} message Message._id everywhere
 	//@argument {ObjectId} user, chat, ids of models
 	static async postMessage(message, user, chat,gen){
 		
-	
 		let result = await messageController.addMessage(message,user,chat,gen);
 		if(result.error)return new Error(result.name+'/'+result.message);
 		let addedToChat = await Facade.postMessageToChat(chat, gen);
@@ -642,9 +608,6 @@ class Facade {
 		/*try{
 			let chat = await Facade.getChatData(result.chatId);
 		}catch(e){return new Error(e.name+"/"+e.message);}*/
-		
-		
-
 		return result;
 	} 
 
@@ -711,12 +674,8 @@ class Facade {
 		return user.name;
 	}
 
-
-
 	//////////////////////////////////////
 	//METHODS FOR GROUP CONTROLLER
-
-
 
 	static async addGroup(){
 
@@ -800,23 +759,15 @@ class Facade {
 
 		return returned;
 	}
-
-
-
 }
-
-
-
 
 module.exports = Facade;
 
 
 
-														///////////TESTS///////////////
-														///////////////////////////////
-														///////////TESTS///////////////
-
-
+///////////TESTS///////////////
+///////////////////////////////
+///////////TESTS///////////////
 
 
 const requestToDatabase = async (data, callback)=>{
@@ -881,12 +832,6 @@ const data2 = {
 	user: "Valentin"
 
 }
-
-
-
-
-
-
 
 async function test(){
 
@@ -961,13 +906,7 @@ async function test(){
 
 		//console.log(await Facade.getMessage(msgId));
 
-
-	
-
 	mongoose.connection.close();
-
-
-
 }
 
 //test()
