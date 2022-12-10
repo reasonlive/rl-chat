@@ -3,9 +3,9 @@ const Model = require('../models/chat');
 const User = require('../models/user');
 
 
-//@argument {String} name  name of chat 
-//@argument {String} creator User.id
-//@argument {Boolean} private Chat.isPrivate 
+//@param {String} name  name of chat 
+//@param {String} creator User.id
+//@param {Boolean} private Chat.isPrivate 
 async function addChat(name, creator, private){
 
 	try{

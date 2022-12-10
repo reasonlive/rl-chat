@@ -140,14 +140,9 @@ class Facade {
 	}
 
 
-	/*//@argument {object} fields are {
-		id,
-		newPassword,
-		country,
-		name,
-		tags,
-	}*/
-
+	/**
+	 * @param {Object} fields are {id,newPassword,country,name,tags}
+	 */
 	static async editUserAccount(fields){
 
 		if(!fields.id)return new Error('Operation forbidden!');
@@ -237,7 +232,7 @@ class Facade {
 		}
 	}
 */
-	//@argument {object} fields are id,time,forever
+	//@param {Object} fields are id,time,forever
 	static async banUser(fields){
 
 		if(typeof fields !== 'object'){
@@ -274,7 +269,7 @@ class Facade {
 		else return false;
 	}
 
-	//@argument {String} status may be :
+	//@param {Otring} status may be :
 	//newbie, calm, provocative, heckler, smartass, asshole, prettyboy, oldfashion, advanced, finefellow, 
 	static async setUserStatus(id, status){
 
@@ -313,7 +308,7 @@ class Facade {
 		}
 	}
 
-	//@argument {object} option may be one of these:  
+	//@param {Object} option may be one of these:  
 	//amount,online,banned,names,ids,admin =============================>
 	static getAllUsers = async function(option){
 
@@ -381,7 +376,7 @@ class Facade {
 	/////////////////////////////////////////////////////////////
 	//METHODS FOR CHAT CONTROLLER
 
-	//@argument {object} fields are {nameOfChat,userId,isPrivate}
+	//@param {Object} fields are {nameOfChat,userId,isPrivate}
 	static async addChat(fields){
 		let added;
 		if(typeof fields === 'object'){
@@ -567,7 +562,7 @@ class Facade {
 	}
 
 
-	//@argument {ObjectId} message _id
+	//@param {ObjectId} message _id
 	static async deleteMessageFromChat(id, messageId){
 
 		try{
@@ -587,8 +582,8 @@ class Facade {
 	//////////////////////////////////////
 	//METHODS FOR MESSAGE CONTROLLER
 
-	//@argument {ObjectId} message Message._id everywhere
-	//@argument {ObjectId} user, chat, ids of models
+	//@param {ObjectId} message Message._id everywhere
+	//@param {ObjectId} user, chat, ids of models
 	static async postMessage(message, user, chat,gen){
 		
 		let result = await messageController.addMessage(message,user,chat,gen);
@@ -599,7 +594,7 @@ class Facade {
 		return result;
 	}
 
-	//@argument {String} newMessage is a string of sending message
+	//@param {Otring} newMessage is a string of sending message
 	static async editMessage(message, newMessage){
 		let result = await messageController.updateMessage(message,newMessage);
 		if(!result)return new Error('NotFoundError/No such message');

@@ -3,7 +3,7 @@ const crypt = require('crypto-js');
 
 
 
-//@argument {Object} fields are name,email,password,country,age 
+//@param {Object} fields are name,email,password,country,age 
 async function addUser(fields){
 	console.log(fields)
 	try{
@@ -93,7 +93,7 @@ async function updateUser(id, fields){
 
 	return result;
 }
-//@argument {Object} data must be an Object {name:String,array:[]}
+//@param {Object} data must be an Object {name:String,array:[]}
 async function updateArray(id, data, set){
 
 	let {name,array} = data,updated;
