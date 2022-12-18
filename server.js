@@ -1,6 +1,6 @@
 const http = require('http');
 const app = require('./app');
-const cfg = require('./lib/config');
+const cfg = require('./config');
 const b64 = require('base-64');
 const utf8 = require('utf8');
 
@@ -8,7 +8,7 @@ const WebSocketServer = require('ws').Server;
 
 
 const Facade = require('./controllers');
-const getSessionUserInfo = require('./lib/request/getSessionUser');
+const getSessionUserInfo = require('./utils/request/getSessionUser');
 
 
 

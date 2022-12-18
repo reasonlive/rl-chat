@@ -1,13 +1,13 @@
 const express = require('express');
 const app  = express();
-const cfg = require('./lib/config');
+const cfg = require('./config');
 
 //main router
-const router = require('./lib/request');
+const router = require('./utils/router');
 //profile page router
-const profileRouter = require('./lib/request/profileRouter');
+const profileRouter = require('./utils/router/profileRouter');
 //chat page router
-const chatRouter = require('./lib/request/chatRouter');
+const chatRouter = require('./utils/router/chatRouter');
 
 
 const bodyParser = require('body-parser');
