@@ -9,7 +9,7 @@ const mongoose = require('../db');
 const getSessionUserInfo = require('./getSessionUser');
 
 
-//checks if user authenticated
+//checks if user authenticated checkAuthentication
 router.get('/profile', async function(req,res,next){
 	if(!req.session || !req.session.t){
 		res.redirect('/');
@@ -26,8 +26,6 @@ router.get('/profile/getData', async function(req,res,next){
 		return;
 		next()
 	}
-
-	
 
 	let user = await getSessionUserInfo(req);
 	let userData = await Facade.getUserData(user.id);

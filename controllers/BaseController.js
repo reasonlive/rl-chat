@@ -14,9 +14,9 @@ class BaseController {
 	 */
 	_model;
 	
-	constructor() {
+	constructor(model = require('../models/Model')) {
 		this._entities = require('../models/entities');
-		this._model = require('../models/Model');
+		this._model = model;
 	}
 }
 

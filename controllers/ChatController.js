@@ -1,6 +1,6 @@
 const BaseController = require('./BaseController');
 
-class ChatController extends BaseController{
+class ChatController extends BaseController {
 
 	/////////////////////////////////////////////////////////////
 	//METHODS FOR CHAT CONTROLLER
@@ -45,6 +45,10 @@ class ChatController extends BaseController{
 
 	async deleteUser(id, userId) {
 		await this.model.update(id, {$pull: {users: userId}});
+	}
+
+	async getAllChats() {
+		return await this.model.getAll();
 	}
 }
 

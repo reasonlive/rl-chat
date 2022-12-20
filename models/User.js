@@ -4,8 +4,8 @@ const crypt = require('crypto-js');
 class User extends Model {
 
 	#jwt = {
-		verify: require('jsonwebtoken').verify,
-		key:    require('../config').jwtKey
+		...require('jsonwebtoken'),
+		key: require('../config').jwtKey
 	};
 
 	getStatusList() {
@@ -26,7 +26,7 @@ class User extends Model {
 	async getSessionUserInfo(req, cookie = null) {
 		let token;
 		if (!cookie) {
-			token = (req && req.session && req.session.t) ? req.session.t : '';
+			token = req?.session?.t || null;
 			
 			if (!token) {
 				return;
@@ -39,7 +39,15 @@ class User extends Model {
 		return await this.#jwt.verify(token, this.#jwt.key);	
 	}
 
+	async getSessionUserToken(id, name) {
+		const payload = {
+			id,
+			name,
+			exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24)
+		}
 
+		return this.#jwt.sign(payload, cfg.jwtKey);
+	}
 
 	/*function checkPassword(pass, hash){
 		const salt = require('../lib/config').key;

@@ -27,8 +27,7 @@ const sockets = new Set();
 ws.on('connection',  async function(socket,req){
 
 	sockets.add(socket);
-	let userData = await getLoggedUserData(req);
-	console.log(userData.name+" has connected to the chat");
+	//console.log(userData.name+" has connected to the chat");
 	socket.on('message', function(msg){
 
 		let receivedString = msg.split('/');

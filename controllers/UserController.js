@@ -4,9 +4,9 @@ class UserController extends BaseController {
 	//METHODS FOR USER CONTROLLER
 	//////////////////////////////
 	constructor() {
-		super();
-		this._model = require('../models/User');
+		super(require('../models/User'));
 		this.model = this._model.getObject(this._entities.user);
+		return this;
 	}
 
 	//name, email, password, country, age
@@ -23,7 +23,7 @@ class UserController extends BaseController {
 		return await this.model.deleteAll();
 	}
 
-	async loginUser(email, password){
+	async loginUser(email, password, ipAddress = null){
 
 		const user = await this.model.get({email});
 
@@ -44,7 +44,7 @@ class UserController extends BaseController {
 		}
 
 		const lastIpLog = {
-			ip: null, //todo: add IP-address
+			ip: ipAddress,
 			date: Date.now()
 		}
 
@@ -82,9 +82,9 @@ class UserController extends BaseController {
 	/**
 	 * @param {Object} fields are {id,newPassword,country,name,tags}
 	 */
-	static async editUserAccount(fields){
+	async editUserSettings(id, fields) {
 
-		if(!fields.id)return new Error('Operation forbidden!');
+		if(!id)return new Error('Operation forbidden!');
 		if(fields.newPassword){
 
 			let result = await User
@@ -111,68 +111,46 @@ class UserController extends BaseController {
 		else return editedUser;
 	}
 
+	// todo: create methods for foreign keys of other models
+	async getUserData(id) {
+		const data = await this.model.get(id);
+
+		const chatNames = [];
+		const groupNames = [];
+
+		for (let id of data.chats) {
+			if (data.chats.length < 1) {
+				break;
+			}
+
+			const {name, _id} = await this.model.getReferenceObject(id, this._entities.chat);
+			chatNames.push({name, id: _id});	
+		}
+
+		for (let id of data.groups) {
+			if (data.groups.length < 1) {
+				break;
+			}
+
+			const {name, _id} = await this.model.getReferenceObject(id, this._entities.group);
+			groupNames.push({name, id: _id});	
+		}
+
+		data.chats = chatNames;
+		data.groups = groupNames;
+	}
+
 	
 	//@param {Object} fields are id,time,forever
-	static async banUser(fields){
-
-		if(typeof fields !== 'object'){
-			fields = {
-				id: arguments[0],
-				time: arguments[1] || 86400000,
-				forever: arguments[2] || false,
-			}
+	async banUser(id, dateTo, forever = false) {
+		fields = {
+				id,
+				dateTo,
+				forever,
 		}
-
-		let banned = await User.banUser(fields);
-		if(!banned)return new Error('NotFoundError/No such User');
-		return banned;
-
-	}
-
-	//@param {Otring} status may be :
-	//newbie, calm, provocative, heckler, smartass, asshole, prettyboy, oldfashion, advanced, finefellow, 
-	static async setUserStatus(id, status){
-
-		const statuses = ['newbie', 'calm', 'provocative',
-		 'heckler', 'smartass', 'asshole', 'prettyboy',
-		  'oldfashion', 'advanced', 'finefellow'];
-
-		  if(!statuses.includes(status))
-		  	return new Error('NofFoundError/No such Status');
-
 		
-		try{
-			let user = await Facade.getUserData(id);
-			user.status = status;
-			await user.save();
-			return true;
-		}catch(e){
-			return new Error(e.name+"/"+e.message);
-		}
+		//todo: update ban fields
 	}
-
-	static async getAllUsersInfo(){
-		let all = await Facade.getAllUsers({all:true});
-		if(all instanceof Array){
-			let returned = [];
-			for(let item of all){
-				let user = {
-					//name,age,country,registered,status,estimate,tags,avatar
-					avatar: item.avatar,
-					name:item.name,
-					age:item.age,
-					country:item.country,
-					status: item.status,
-					estimate:item.estimate,
-					tags: item.tags,
-					_id: item._id
-				}
-				returned.push(user);
-			} 
-			return returned;
-		}
-	}
-}
 
 module.exports = UserController;
 
